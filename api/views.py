@@ -6,14 +6,13 @@ from rest_framework import generics
 from rest_framework import status, viewsets
 from rest_framework import permissions
 from .permissions import IsOwnerOrReadOnly
+from django.shortcuts import render
 
 class CreateFishView(viewsets.ModelViewSet):
     queryset = FishDetail.objects.all()
     serializer_class = FishSerializer
-
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerOrReadOnly]
-
     def perform_create(self, serializer):
         serializer.save(uploaded_by=self.request.user)
 
@@ -21,4 +20,10 @@ class ListFishView(generics.ListAPIView):
     model = FishDetail
     serializer_class = FishSerializer
     queryset = FishDetail.objects.all()
+
+def my_view(request):
+    qs=FishDetail.objects.all()
+    context= {'qs':qs}
+    return render(request, "image.html", context)
+
     

@@ -1,0 +1,14 @@
+<html>
+   <head>
+      <title>
+         {% block title %}image{% endblock %}
+      </title>
+   </head>
+   <body>
+       {% for i in qs %}
+       {% if i.fish_image %}
+              <img src="{{i.fish_image.url}}">
+        {% endif %}
+       {% endfor %}
+   </body>
+</html>
